@@ -10,7 +10,8 @@
  */
 
 function pow(base: number, power: number): number {
-  return 0; // Placeholder return value for type safety - replace for your solution
+  if (power === 0) return 1;
+  return base * pow(base, power - 1);
 }
 
 /**

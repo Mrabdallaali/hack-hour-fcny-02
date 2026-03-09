@@ -6,8 +6,25 @@
  */
 
 export const duplicateNumber = (array: number[]): number => {
+  //using Set
+  const seen = new Set<Number>();
+
+  for (const num of array) {
+    if (seen.has(num)) return num;
+    seen.add(num);
+  }
   return 0;
 };
+
+//another solution using array approach
+
+const seen: number[] = [];
+
+for (const num of array) {
+  if (seen.includes(num)) return num;
+  seen.push(num);
+}
+return 0;
 
 /*
  * Extension:

@@ -17,6 +17,13 @@
 */
 
 export const twoSum = (arr: number[], target: number): boolean => {
+    const seen = new Set<number>();
+
+    for (const num of arr) {
+      if (seen.has(num)) return true;
+      seen.add(target - num);
+    }
+    
   return false;
 };
 
