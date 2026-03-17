@@ -18,11 +18,27 @@ nestedArrMax(arrNested);
 */
 type NestedNumberArray = [
   number | NestedNumberArray,
-  ...(number | NestedNumberArray)[]
+  ...(number | NestedNumberArray)[],
 ];
 
 const nestedArrMax = (arr: NestedNumberArray): number | undefined => {
-  return undefined;
+  let largest;
+  for (const element of arr) {
+    if (typeof element === "number") {
+      if (largest === undefined || element > largest) {
+        largest = element;
+      }
+    } else {
+      const maxInNested = nestedArrMax(element);
+      if (
+        largest === undefined ||
+        (maxInNested !== undefined && maxInNested > largest)
+      ) {
+        largest = maxInNested;
+      }
+    }
+  }
+  return largest;
 };
 
 /*
@@ -50,7 +66,7 @@ nestedArrMaxLevel(arrNested, 3);
 
 const nestedArrMaxLevel = (
   arr: NestedNumberArray,
-  level: number
+  level: number,
 ): number | undefined => {
   return undefined;
 };
