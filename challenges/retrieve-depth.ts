@@ -26,9 +26,26 @@ type NestedArr<T> = (T | NestedArr<T>)[];
 
 export const retrieveDepth = (
   arr: NestedArr<number>,
-  depth: number
+  depth: number,
+  currentDepth: number = 1, //add an optional parameter to keep track of the current depth as we recurse
 ): number[] => {
-  return [];
+  const result: number[] = [];
+
+  for (const element of arr) {
+    if (typeof element === 'number') {
+      // If it's a number and we're within the desired depth, add it to the result
+      if (currentDepth <= depth) {
+        result.push(element);
+      }
+    } else {
+      // If it's an array, we need to go deeper
+      // We call retrieveDepth recursively on the nested array, increasing the current depth by 1
+      const nestedResult = retrieveDepth(element, depth, currentDepth + 1);
+      result.push(...nestedResult); // Spread the nested results into our main result array
+    }
+  }
+
+  return result; // Return the collected numbers that are within the specified depth  
 };
 
 /*
@@ -60,7 +77,7 @@ flattened array
 
 export const flattenDepth = (
   arr: NestedArr<number>,
-  depth: number
+  depth: number,
 ): NestedArr<number> => {
   return [];
 };
