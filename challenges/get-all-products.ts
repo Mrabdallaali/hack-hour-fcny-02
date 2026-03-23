@@ -33,7 +33,8 @@ const getAllProducts = (array: number[]): number[] => {
     }
     products.push(product);
   }
-}; 
+  return products;
+};
 
 
 
