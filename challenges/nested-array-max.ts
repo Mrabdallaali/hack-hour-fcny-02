@@ -41,6 +41,30 @@ const nestedArrMax = (arr: NestedNumberArray): number | undefined => {
   return largest;
 };
 
+
+/*
+Why not just use -Infinity instead?
+A common alternative is initializing with let largest = -Infinity, which lets you skip the undefined checks entirely:
+*/
+
+const nestedArrMaxAlt = (arr: NestedNumberArray): number => {
+  let largest = -Infinity;
+  for (const element of arr) {
+    if (typeof element === "number") {
+      if (element > largest) {
+        largest = element;
+      }
+    } else {
+      const maxInNested = nestedArrMaxAlt(element);
+      if (maxInNested > largest) {
+        largest = maxInNested;
+      }
+    }
+  }
+  return largest;
+};
+
+
 /*
 
 Extension:
