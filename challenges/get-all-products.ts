@@ -22,7 +22,20 @@ multiple zeroes?
 */
 
 const getAllProducts = (array: number[]): number[] => {
-  return [];
-};
+  const products: number[] = [];
+  
+  for (let i = 0; i < array.length; i++) {
+    let product = 1;
+    for (let j = 0; j < array.length; j++) { 
+      if (i !== j) { // we want to multiply all numbers except the one at index i (skip 'same as i')
+        product *= array[j];  // multiply the current product by the number at index j, which is one of the numbers we want to include in our product
+      }
+    }
+    products.push(product);
+  }
+}; 
+
+
+
 
 export default getAllProducts;
