@@ -20,7 +20,23 @@ After completing your initial approach, try refactoring your solution so that it
 const commonElements = (
   ...args: (string | number)[][]
 ): (string | number)[] | 'Nothing in Common!' => {
-  return [];
+   // Initialize a cache to count occurrences
+  const cache: Record<string, number> = {};
+  // Initialize array to store the common elements
+  const commonElements: (string | number)[] = [];
+  // Flatten the input arrays and process each element
+  args.flat().forEach((element: string | number) => {
+    // Update the cache: increment count or initialize to 1
+    cache[element] = (cache[element] || 0) + 1;
+    // If element count matches the number of input arrays, element
+    // is common among all arrays and added to commonElements array
+    if (cache[element] === args.length) {
+      commonElements.push(element);
+    }
+  });
+  // Return the common elements or "Nothing in Common!" if none found
+  return commonElements.length ? commonElements : 'Nothing in Common!';
+  
 };
 
 /*
