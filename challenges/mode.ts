@@ -12,34 +12,29 @@ mode([7, 5, 8, 8, 2, 5]) -> 8
 */
 
 const mode = (array: number[]): number => {
-  // Create an empty map to store each number and how many times it appears
-  // Key = the number, Value = its count
-  const counts = new Map<number, number>();
+  //initialize a tally to keep track of the count of each number
+  const tally = new Map<number, number>();
 
-  // Loop through every number in the array
+  let mode = -Infinity; //initialize mode to negative infinity to handle cases where all numbers are negative
+  let maxCount = 0; //initialize maxCount to keep track of the highest count
+
   for (const num of array) {
-    // If the number exists, add 1 to its count. If not, start from 0 then add 1
-    counts.set(num, (counts.get(num) ?? 0) + 1);
-  }
+    //get the count of the current number from the tally, defaulting to 0 if it doesn't exist
+    let count = tally.get(num) ?? 0;
+    //increment the count for the current number
+    tally.set(num, ++count);
 
-  // Track the highest count seen so far
-  let maxCount = 0;
-  // Track the winning number to return at the end
-  let results = 0;
-
-  // Loop through the finished map, unpacking each pair into num and count
-  for (const [num, count] of counts) {
-    // Update our winner if:
-    // 1. This count is higher than the best so far, OR
-    // 2. It's a tie but this number is larger
-    if (count > maxCount || (count === maxCount && num > results)) {
+    //if the count of the current number is greater than the maxCount, update the mode and maxCount
+    if (count > maxCount) {
+      mode = num;
       maxCount = count;
-      results = num;
+    } else if (count === maxCount) {
+      //if the count is equal to the maxCount, update the mode to the maximum of the current mode and the current number
+      mode = Math.max(mode, num);
     }
   }
 
-  // Return the number that appeared most often (or the largest if tied)
-  return results;
+  return mode;
 };
 
 /*
