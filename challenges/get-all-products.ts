@@ -36,6 +36,30 @@ const getAllProducts = (array: number[]): number[] => {
   return products;
 };
 
+//solution 2 with O(n) time complexity
+const getAllProductsOptimized = (array: number[]): number[] => {
+  let productBefore: number[] = [];
+  let product = 1;
+  for (let i = 0; i < array.length; i++) {
+    productBefore[i] = product; // store the product of all numbers before index i
+    product *= array[i]; // update the product to include the current number
+  }
+
+  let productAfter: number[] = [];
+  product = 1;
+  for (let i = array.length - 1; i >= 0; i--) {
+    productAfter[i] = product; // store the product of all numbers after index i
+    product *= array[i]; // update the product to include the current number
+  }
+
+  const products: number[] = [];
+  for (let i = 0; i < array.length; i++) {
+    products.push(productBefore[i] * productAfter[i]); // multiply the products before and after index i to get the final product for that index
+  }
+  
+  return products;
+}
+
 
 
 
