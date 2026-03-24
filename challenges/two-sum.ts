@@ -17,11 +17,11 @@
 */
 
 export const twoSum = (arr: number[], target: number): boolean => {
-  const seen = new Set<number>();
+  const compliment = new Set<number>();
 
   for (const num of arr) {
-    if (seen.has(num)) return true;
-    seen.add(target - num);
+    if (compliment.has(num)) return true;
+    compliment.add(target - num);
   }
 
   return false;
