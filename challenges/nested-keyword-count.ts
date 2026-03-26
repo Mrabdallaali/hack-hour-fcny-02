@@ -28,6 +28,25 @@ const keywordCount = (array: NestedArray, keyword: string): number => {
 };
 
 
+//approach solution
+
+let total: number = 0;
+
+const keywordCount = (array: NestedArray, keyword: string): number => {
+  array.forEach((element) => {
+    if(Array.isArray(element)) {
+      total += keywordCount(element, keyword); // RECURSIVE CALL: if it's an array, we need to go deeper
+    } else {
+      if (element === keyword) {
+        total++;
+      }
+    }
+  });
+
+  return total; // Return the total count of the keyword found in the nested array
+}
+
+
 //using reduce
 const keywordCount = (array: NestedArray, keyword: string): number => {
   return array.reduce((count, element) => {
