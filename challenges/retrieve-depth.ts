@@ -53,7 +53,7 @@ export const retrieveDepth = (
   arr: NestedArr<number>,
   depth: number,
 ): number[] => {
-    if (depth <= 0) { //base case
+    if (depth <= 0) return [] { //base case
   const result: number[] = [];
   
   for (const element of arr) {
