@@ -48,6 +48,24 @@ export const retrieveDepth = (
   return result; // Return the collected numbers that are within the specified depth  
 };
 
+//approach solution (cleaner)
+export const retrieveDepth = (
+  arr: NestedArr<number>,
+  depth: number,
+): number[] => {
+    if (depth <= 0) { //base case
+  const result: number[] = [];
+  
+  for (const element of arr) {
+    if (array.isArray(element)) {
+      result.push(...retrieveDepth(element, depth - 1)); // RECURSIVE CALL: if it's an array, we need to go deeper, and we decrease the depth by 1
+    } else {
+      result.push(element); // base case: it's a number, we add it to the result
+    }
+  }
+
+  return result; // Return the collected numbers that are within the specified depth  
+}
 /*
 
 Extension:
