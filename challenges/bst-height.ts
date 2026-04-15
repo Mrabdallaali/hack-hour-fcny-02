@@ -33,8 +33,19 @@ export class BinarySearchTree {
 }
 
 export const bstHeight = (tree: BinarySearchTree | null): number => {
-  return -1;
+  // Base case. If there's no node here, return -1. This is what stops the recursion from going forever.
+  if (tree === null) return -1;
+
+  // Call the same function on the left child. This keeps going deeper and deeper down the left side until it hits null.
+  const leftHeight = bstHeight(tree.left);
+
+  // Same thing but for the right side.
+  const rightHeight = bstHeight(tree.right);
+
+  // Take whichever side is taller, add 1 for the current link, return it up to the caller.
+  return 1 + Math.max(leftHeight, rightHeight);
 };
+
 
 /*
   Extension:
