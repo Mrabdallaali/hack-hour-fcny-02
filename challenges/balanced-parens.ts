@@ -25,22 +25,22 @@
  */
 
 const balancedParens = (input: string): boolean => {
-  const matchingBrackets: Record<string, string> = {
-    "[": "]",
-    "{": "}",
-    "(": ")",
+  const matchingBrackets:  Record<string, string>= {
+    '[': ']',
+    '{': '}',
+    '(': ')',
   };
 
   const stack: string[] = [];
 
   for (const char of input) {
-    if (char in matchingBrackets) {
+    if (char in matchingBrackets){
       stack.push(matchingBrackets[char]);
-    } else if (")]}".includes(char)) {
+    } else if (')]}'.includes(char)) {
       if (stack.pop() !== char) return false;
     }
   }
-
+  
   return stack.length === 0;
 };
 

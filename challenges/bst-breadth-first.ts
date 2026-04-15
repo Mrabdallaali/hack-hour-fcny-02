@@ -1,16 +1,16 @@
 class BST {
-    value: number;
-    right: null | BST;
-    left: null | BST;
+  value: number;
+  right: null | BST;
+  left: null | BST;
 
-    constructor(value: number) {
-        this.value = value;
-        this.right = null;
-        this.left = null;
-    }
-};
-  
-  /*
+  constructor(value: number) {
+    this.value = value;
+    this.right = null;
+    this.left = null;
+  }
+}
+
+/*
   
   Given the root of a binary search tree and a callback function, apply the
   callback to the values of the BST in breadth-first order.
@@ -40,10 +40,30 @@ class BST {
   Utilizing recursion is not necessary, nor recommended.
   
   */
-  
-  const bfs = (root: BST, callback: Function): void => {};
-  
-  /*
+
+/*
+  Start with the root in the queue
+while the queue is not empty, keep going
+shift() takes the first node out
+Apply the callback to its value
+If it has a left child, push it
+If it has a right child, push it
+Repeat
+  */
+
+const bfs = (root: BST, callback: Function): void => {
+  const queue: BST[] = [root];
+
+  while (queue.length > 0) {
+    const node = queue.shift()!;
+    callback(node.value);
+
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+};
+
+/*
   
   Extension:
   
@@ -90,12 +110,11 @@ class BST {
   neighbors are traversable and haven't already been visited.
   
   */
-  type GridNumber = 0 | 1 | 2;
-  type Coordinates = `${number}#${number}`;
+type GridNumber = 0 | 1 | 2;
+type Coordinates = `${number}#${number}`;
 
-  const minimumDistance = (grid : GridNumber[][]): number => {
-    return 0;
-  };
-  
-  export { BST, GridNumber, Coordinates, bfs, minimumDistance }
+const minimumDistance = (grid: GridNumber[][]): number => {
+  return 0;
+};
 
+export { BST, GridNumber, Coordinates, bfs, minimumDistance };
