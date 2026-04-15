@@ -34,8 +34,31 @@ class BinarySearchTree {
 }
 
 const bstMinMax = (root: BinarySearchTree): number => {
-  return 0;
+  
+const findMin = (node: BinarySearchTree): number => {
+  // if there is no left child, this is the smallest value
+  if (node.left === null) return node.value;
+  // otherwise keep going left
+  return findMin(node.left);
+}
+
+const findMax = (node: BinarySearchTree): number => {
+  // if there is no right child, this is the largest value
+  if (node.right === null) return node.value;
+  // otherwise keep going right
+  return findMax(node.right);
+}
+
+const bstMinMax = (root: BinarySearchTree): number => {
+  // find the leftmost node (minimum)
+  const min = findMin(root);
+  // find the rightmost node (maximum)
+  const max = findMax(root);
+  // return the difference
+  return max - min;
 };
+};
+
 
 /*
 
