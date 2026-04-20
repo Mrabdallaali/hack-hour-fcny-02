@@ -25,10 +25,18 @@ class Stack<T> {
     this.length = 0;
   }
 
-  push(val: T): void {}
+    // O(1) - just store at current index and increment
+  push(val: T): void {
+    this.items[this.length++] = val;
+  }
 
+    // O(1) - just grab from top, delete, and decrement
   pop(): T | undefined {
-    return undefined;
+    if (this.length <= 0) return undefined;
+    const val = this.items[this.length - 1];
+    delete this.items[this.length - 1];
+    this.length--;
+    return val;
   }
 }
 
@@ -41,10 +49,26 @@ class Queue<T> {
     this.outStack = new Stack();
   }
 
-  enqueue(val: T): void {}
+   // O(1) - just push onto inStack
+  enqueue(val: T): void {
+    this.inStack.push(val);
+  }
 
+   // O(n) worst case, O(1) amortized
   dequeue(): T | undefined {
-    return undefined;
+     // if both stacks empty, nothing to dequeue
+    if (!this.inStack.length && !this.outStack.length) return;
+    
+    // only pour when outStack is empty
+    // this flips the order, putting the oldest item on top
+     if (!this.outStack.length) {
+      while (this.inStack.length) {
+        this.outStack.push(this.inStack.pop()!);
+      }
+    }
+
+    // always pop from outStack
+    return this.outStack.pop();
   }
 }
 
