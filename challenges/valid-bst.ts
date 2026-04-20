@@ -45,6 +45,16 @@ export class BinaryTree {
   }
 }
 
-export const validBST = (tree: BinaryTree | null): boolean => {
-  return false;
+export const validBST = (
+  tree: BinaryTree | null,
+  min = -Infinity,
+  max = Infinity
+  ): boolean => {
+  if(tree === null) return true;
+  if (tree.value <= min || tree.value >= max) return false;
+
+  return (
+    validBST(tree.left, min, tree.value) && // tree.value -> max
+    validBST(tree.right, tree.value, max) // tree.value -> min
+  );
 };

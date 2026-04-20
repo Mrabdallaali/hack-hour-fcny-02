@@ -19,15 +19,14 @@ class BinarySearchTree {
   }
 }
 
-const bstSum = (root: BinarySearchTree): number => {
-   if (root === null) return 0;
-   
-   const leftSum = bstSum(root.left)
-   const rightSum = bstSum(root.right)
+const bstSum = (root: BinarySearchTree | null): number => {
+  if (root === null) return 0;
 
-   return leftSum + rightSum + root.value
-}
+  const leftSum = bstSum(root.left);
+  const rightSum = bstSum(root.right);
 
+  return leftSum + rightSum + root.value;
+};
 
 /*
   
