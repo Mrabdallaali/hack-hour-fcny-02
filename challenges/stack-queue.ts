@@ -72,4 +72,12 @@ class Queue<T> {
   }
 }
 
+ 
+/*  The three things to remember if you had to recall this from scratch:
+
+1- Stack uses a plain object {} with a manual length counter instead of an array
+2- enqueue always goes to inStack, dequeue always comes from outStack
+3- Only pour inStack into outStack when outStack is empty — otherwise just pop directly
+
+ */
 export { Stack, Queue };
