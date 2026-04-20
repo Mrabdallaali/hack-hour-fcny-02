@@ -14,9 +14,35 @@ whole array, the array will end up being sorted.
 */
 
 export const selectionSort = (arr: number[]): number[] => {
-  return [];
+  // outer loop: each round we fill position i with the correct value
+  // stop at length - 1 because the last element falls into place automatically
+  for (let i = 0; i < arr.length - 1; i++) {
+
+    // assume the current position is the smallest
+    let minIndex = i;
+
+    // inner loop: scan everything to the right of i to find the true minimum
+    for (let j = i + 1; j < arr.length; j++) {
+
+      // if we find something smaller, update minIndex
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+
+    // only swap if the minimum isn't already in the correct position
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+    // everything to the left of i is now sorted
+  }
+
+  return arr;
 };
 
+/* 
+The mental model in one sentence — each round of the outer loop finds the smallest remaining number and drops it into its correct position, until the whole array is sorted.
+*/
 /*
 
 Extension:
