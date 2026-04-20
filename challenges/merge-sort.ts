@@ -14,7 +14,36 @@
 */
 
 const mergeSort = (array: number[]): number[] => {
-  return [];
+    const mergeSort = (array: number[]): number[] => {
+  
+  // base case: single element is already sorted, return it
+  if (array.length <= 1) return array;
+
+  // find the middle index to split the array in half
+  const mid = Math.ceil(array.length / 2);
+
+  // recursively split and sort the left half
+  const left = mergeSort(array.slice(0, mid));
+
+  // recursively split and sort the right half
+  const right = mergeSort(array.slice(mid));
+
+  // create an empty array to build our sorted result
+  const sortedArray: number[] = [];
+
+  // compare first elements of each half, take the smaller one
+  // shift() removes and returns the first element
+  // keep going until one of the arrays is empty
+  while (left.length && right.length) {
+    left[0] < right[0]
+      ? sortedArray.push(left.shift()!)
+      : sortedArray.push(right.shift()!);
+  }
+
+  // spread sortedArray plus any remaining elements
+  // the leftover element will always be the largest
+  return [...sortedArray, ...left, ...right];
+};
 };
 
 export default mergeSort;
