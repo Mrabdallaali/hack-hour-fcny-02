@@ -36,6 +36,45 @@ const linkedListRemove = <T>(
   ll: LinkedList<T>,
   val: T
 ): ListNode<T> | undefined => {
+ 
+ // set up two pointers
+  // previousNode starts unset because nothing comes before the head
+  // currentNode starts at the head (the beginning of the list)
+  let previousNode: ListNode<T>;
+  let currentNode = ll.head;
+
+  // keep looping as long as currentNode is not null
+  // when we fall off the end of the list, currentNode becomes null and we stop
+  while (currentNode) {
+
+    // check if the current node holds the value we're looking for
+    if (currentNode.val === val) {
+
+      // we found our target — now we need to remove it
+      // first ask: is the node we're removing the head of the list?
+      currentNode === ll.head
+
+        // YES — just move the head pointer forward to the next node
+        // the old head is now disconnected from the list
+        ? (ll.head = currentNode.next)
+
+        // NO — stitch previousNode.next around the removed node
+        // so the node before it now points to the node after it
+        // the ! tells TypeScript "trust me, previousNode is set here"
+        : (previousNode!.next = currentNode.next);
+
+      // return the removed node immediately and exit the function
+      // currentNode still exists, it's just no longer part of the list
+      return currentNode;
+    }
+
+    // no match yet — advance both pointers forward by one node
+    previousNode = currentNode;       // prev catches up to curr
+    currentNode = currentNode.next;   // curr moves to the next node
+  }
+
+  // we made it through the whole list without finding the value
+  // return undefined to signal it wasn't there
   return undefined;
 };
 
